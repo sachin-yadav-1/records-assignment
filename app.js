@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/records', recordRouter);
-app.all('*', (req, res, next) => {
+app.all('*', (req, res) => {
   res.status(404).json({
     status: 'failed',
     message: `Invalid route - ${req.originalUrl}`,

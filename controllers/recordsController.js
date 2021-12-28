@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const JSONise = require('./../utils/jsonise')
 const RecordModel = require('./../models/records');
 let data = fs.readFileSync(path.join(__dirname, './../data/datajson.txt'), 'utf-8');
 
@@ -7,7 +8,7 @@ let data = fs.readFileSync(path.join(__dirname, './../data/datajson.txt'), 'utf-
  * @description Get all entries from 'datajson.txt' file
  * This route is created because the provided files was in TXT format instead of JSON.
  */
-exports.createEntries = async (req, res) => {
+exports.createRecords = async (req, res) => {
   try {
     data = data
       .split('[')[1]
@@ -21,7 +22,7 @@ exports.createEntries = async (req, res) => {
         curr = curr.replace('}];', '');
       }
       curr = curr[0] === '{' ? (curr = curr + '}') : (curr = '{' + curr + '}');
-      curr = JSON.parse(utils.JSONize(curr));
+      curr = JSON.parse(JSONise(curr));
       return curr;
     });
 
@@ -39,7 +40,7 @@ exports.createEntries = async (req, res) => {
 /**
  * @description Get all entries
  */
-exports.getAllEntries = async (req, res) => {
+exports.getAllRecords = async (req, res) => {
   try {
     const data = req.query;
 
